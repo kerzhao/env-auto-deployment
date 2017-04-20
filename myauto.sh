@@ -14,15 +14,15 @@ echo "Install Anaconda"
 mkdir Download
 cd Download
 _install_anaconda() {
-	wget https://repo.continuum.io/archive/Anaconda2-4.3.1-Linux-x86_64.sh
+	waitdone = `wget https://repo.continuum.io/archive/Anaconda2-4.3.1-Linux-x86_64.sh`
 	bash Anaconda2-4.3.1-Linux-x86_64.sh
 }
 
 while [[ true ]]; do
 	#statements
 	read -p "安装Anaconda?(y/n):" install_a
-	if ($install_a == "y"); then
-		_install_anaconda()
+	if [[ $install_a == "y" ]]; then
+		_install_anaconda
 		break
 	else
 		break
@@ -61,17 +61,32 @@ echo "安装 CUDA Toolkit 8.0"
 cd ~/Download
 
 _install_cuda() {
-	wget https://developer.nvidia.com/compute/cuda/8.0/Prod2/local_installers/cuda-repo-ubuntu1604-8-0-local-ga2_8.0.61-1_amd64.deb
+	waitdone = `wget https://developer.nvidia.com/compute/cuda/8.0/Prod2/local_installers/cuda-repo-ubuntu1604-8-0-local-ga2_8.0.61-1_amd64-deb`
+	mv cuda-repo-ubuntu1604-8-0-local-ga2_8.0.61-1_amd64-deb cuda-repo-ubuntu1604-8-0-local-ga2_8.0.61-1_amd64.deb
 	sudo dpkg -i cuda-repo-ubuntu1604-8-0-local-ga2_8.0.61-1_amd64.deb
 	sudo apt-get update
 	sudo apt-get install cuda
 }
 
-_install_cuda
+
+while [[ true ]]; do
+	#statements
+	read -p "安装cuda 8?(y/n):" install_a
+	if [[ $install_a == "y" ]]; then
+		_install_cuda
+		break
+	else
+		break
+	fi
+done
+
+echo "空间不足，安装cuda8完成后删除deb文件"
+rm ~/Download/cuda-repo-ubuntu1604-8-0-local-ga2_8.0.61-1_amd64.deb
+
 
 echo "安装 cuDNN"
 cd ~/Download
-git clone git@github.com:justttry/gittest.git
+waitdone = `git clone git@github.com:justttry/gittest.git`
 mv gittest/cudnn-8.0-linux-x64-v5.1.tgz .
 rm -rf gittest
 tar zxvf cudnn-8.0-linux-x64-v5.1.tgz
@@ -83,7 +98,7 @@ echo "复制完成"
 while [[ true ]]; do
 	#statements
 	read -p "检查是否复制成功？(y/n)" ok
-	if ($ok=="y"); then
+	if [[ $ok=="y" ]]; then
 		read commond
 		$commond
 	else
@@ -95,8 +110,8 @@ echo "安装libcupti-dev"
 
 echo "安装tensorflow"
 
-conda create -n tensorflow
-source activate tensorflow
+echo "source activate tensorflow"
+waitdone = `conda create -n tensorflow`
 pip install --ignore-installed --upgrade https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-1.0.1-cp27-none-linux_x86_64.whl
 
 
