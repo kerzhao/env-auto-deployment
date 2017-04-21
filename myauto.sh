@@ -111,6 +111,7 @@ echo "安装libcupti-dev"
 echo "安装tensorflow"
 
 echo "source activate tensorflow"
+conda create -n tensorflow
 waitdone = `conda create -n tensorflow`
 pip install --ignore-installed --upgrade https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-1.0.1-cp27-none-linux_x86_64.whl
 
