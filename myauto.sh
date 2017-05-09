@@ -137,3 +137,9 @@ wget http://d3kbcqa49mib13.cloudfront.net/spark-2.1.0.tgz
 tar zxvf spark-2.1.0.tgz
 cd spark-2.1.0
 ./build/mvn -Pyarn -Phadoop-2.7 -Dhadoop.version=2.7.0 -DskipTests clean package
+
+echo "vi .bashrc"
+echo "export SPARK_HOME=/home/ubuntu/Download/spark-2.1.0"
+echo 'export PATH="/home/ubuntu/anaconda2/bin:$SPARK_HOME/python:$SPARK_HOME/bin:$PATH"'
+echo "export PYSPARK_DRIVER_PYTHON=ipython2 # As pyspark only works with python2 and not python3"
+echo 'export PYSPARK_DRIVER_PYTHON_OPTS="notebook --config=/home/ubuntu/.ipython/profile_justry/ipython_notebook_config.py"'
