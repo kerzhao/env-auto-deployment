@@ -126,3 +126,14 @@ pip install graphviz
 sudo apt-get install graphviz
 pip install pydot==1.1.0
 pip install keras
+
+echo "安装spark"
+sudo apt-get install python-software-properties
+sudo add-apt-repository ppa:webupd8team/java
+sudo apt-get update
+sudo apt-get install oracle-java8-installer
+java -version
+wget http://d3kbcqa49mib13.cloudfront.net/spark-2.1.0.tgz
+tar zxvf spark-2.1.0.tgz
+cd spark-2.1.0
+./build/mvn -Pyarn -Phadoop-2.7 -Dhadoop.version=2.7.0 -DskipTests clean package
